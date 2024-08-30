@@ -92,7 +92,7 @@ The choice of a pre-trained model.
 In general, transfer learning scenarios use pre-trained models so that we can easily extract feature based word embeddings or perform fine-tuning on downstream tasks. 
 
 Feature based Transfer Learning : you learn word embeddings by training one model and then you use those word embeddings in a different model on a different task.
-Fine tuning : In this, you can use the exact same model and use it on a different task. Sometimes when fine tuning, you can keep the model weights fixed and just add a new layer that you will train. Other times you can slowly unfreeze the layers one at a time. You can also use unlabelled data when pre-training, by masking words and trying to predict which word was masked.
+Fine tuning : In this, you can use the exact same model and use it on a different task. Sometimes when fine tuning, you can keep the model weights fixed and just add a new layer that you will train. Other times you can slowly unfreeze the layers one at a time. You can also use unlabelled data when pre-training, by masking words and trying to predict which word was masked. BERT models are usualy pre-trained on unlabeled data and fine-tuned on labeled data for some downstream task and use Next sentence prediction and mask language modeling during pre-training. Keeping these concepts in mind, I chose DistillmBERT for the above tasks.
 
 For example, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
 
