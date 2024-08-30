@@ -58,8 +58,13 @@ Implications
 Advantages
 1. The information from the pre-trained backbone can be extracted and passed on to the task specific heads that are fine-tuned.
 2. Leads to reduction in learnable parameters
+3. Reduces training time.
+4. Smaller dataset
 
 Explanation
+Considering a frozen backbone, we are applying transfer learning which will alllow us to improve predictions because you'll learn a few things from different tasks that might be helpful and useful for your currents predictions on the task you're training on in NLP.
+And since your model has already learnt a lot , you will need less additional data to fine-tune the heads.
+
 
 If only one of the task-specific heads (either for Task A or Task B) should be frozen.
 
@@ -73,14 +78,30 @@ Advantages
 
 Explanation
 
-In a multi-task learning setting, you apply in parallel the attention mechanism to multiple sets of the queue, keys and values that you can get by transforming the original embeddings. In multi-head attention, the number of times that you apply the attention mechanism is the number of heads in the model. For instance, you will need two sets of queries, keys and values in a model with two heads. The first head would use a set of representations and the second head would use a different set.  Using different sets of representations, allow your model to learn multiple relationships between the words from the query and key matrices
+In a multi-task learning setting, you apply in parallel the attention mechanism to multiple sets of the queue, keys and values that you can get by transforming the original embeddings. In multi-head attention, the number of times that you apply the attention mechanism is the number of heads in the model. For instance, you will need two sets of queries, keys and values in a model with two heads. The first head would use a set of representations and the second head would use a different set.  Using different sets of representations, allow your model to learn multiple relationships between the words from the query and key matrices.
+Since each head uses different linear transformations to represent words, different heads learn different relationships between words.
 
 
 Consider a scenario where transfer learning can be beneficial. Explain how you would approach the
 transfer learning process, including:
+
+Task : 
+
 The choice of a pre-trained model.
+
+In general, transfer learning scenarios use pre-trained models so that we can easily extract feature based word embeddings or perform fine-tuning on downstream tasks. 
+
+Feature based Transfer Learning : you learn word embeddings by training one model and then you use those word embeddings in a different model on a different task.
+Fine tuning : In this, you can use the exact same model and use it on a different task. Sometimes when fine tuning, you can keep the model weights fixed and just add a new layer that you will train. Other times you can slowly unfreeze the layers one at a time. You can also use unlabelled data when pre-training, by masking words and trying to predict which word was masked.
+
+For example, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
+
+Similarly, in the above tasks, we have a sentence classifier model of DistillmBERT which is already pre-trained. This model was chosen because this has already been trained with a large corpus of data. This pre-trained model is uncased and multilingual. Hence, can be fine-tuned to a variety of different use cases especially multi-task learning as the problem demands.
+
 The layers you would freeze/unfreeze.
+
 The rationale behind these choices.
+
 
 Task 4: Layer-wise Learning Rate Implementation (BONUS)
 Implement layer-wise learning rates for the multi-task sentence transformer. Explain the rationale for the
