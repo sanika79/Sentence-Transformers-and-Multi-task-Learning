@@ -34,10 +34,12 @@ Describe the changes made to the architecture to support multi-task learning.
 Task 3
 Discuss the implications and advantages of each scenario and explain your rationale as to how the model
 should be trained given the following:
+
 If the entire network should be frozen.
 Implications 
 1. This model uses pre-trained embeddings without further tuning for any task.
 2. This scenario is assumes that the model already performs well on any specific task and does not need further improvement.
+   
 Advantages 
 1. This scenario is useful when computational resources are limited as we just have to use the knowledge of the available pre-trained embedding weights for any given task and fewer parameters are being updated.
 3. Also leads to faster inference.
@@ -48,6 +50,7 @@ Since the entire model is frozen, the model can disrectly be used as a feature e
 If only the transformer backbone should be frozen.
 Implications 
 1. This approach makes use of the pre-trainbed embeddings of the backbone while the task specific heads are fine-tuned. Th general language understanding of the BERT is preserved.
+   
 Advantages
 1. The information from the pre-trained backbone can be extracted and passed on to the task specific heads that are fine-tuned.
 2. Leads to reduction in learnable parameters
@@ -58,6 +61,7 @@ If only one of the task-specific heads (either for Task A or Task B) should be f
 Implications 
 1. This approach is particularly relevant in multi-task learning scenarios (as in Task 2)  where the model is used for more than one downstream task. Here, you freeze one task-specific head while allowing the other head (or heads) to be fine-tuned.
 2. The frozen head will preserve its performance on one task, but the other unfrozen head will adapt to a new task.
+
 Advantages 
 1. Great for multi-task learning where large model backbone embeddings can be used for multiple tasks by fine tuning whichever head is necessary for the task at hand.
 2. Serves as a great advantage when you want to maintain performance on an existing task while also adapting to a new one without losing the model's previous capabilities.
