@@ -52,5 +52,13 @@ Task 3
 Discuss the implications and advantages of each scenario and explain your rationale as to how the model
 should be trained given the following:
 If the entire network should be frozen.
+Implications : 
+Advantages : 
+
 If only the transformer backbone should be frozen.
+Implications :
+Advantages :
+
 If only one of the task-specific heads (either for Task A or Task B) should be frozen.
+Implications :
+Advantages :
