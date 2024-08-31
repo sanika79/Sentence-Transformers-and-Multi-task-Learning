@@ -90,14 +90,14 @@ The choice of a pre-trained model.
 
 In general, transfer learning scenarios use pre-trained models so that we can easily extract feature based word embeddings or perform fine-tuning on downstream tasks. 
 
-Feature based Transfer Learning : you learn word embeddings by training one model and then you use those word embeddings in a different model on a different task.
-Fine tuning : In this, you can use the exact same model and use it on a different tasky or you can keep the model weights fixed and just add a new layer that you will train. Other times you can slowly unfreeze the layers one at a time.
+Feature based Transfer Learning : you learn word embeddings by training one model and then you use those word embeddings in a different model for a different task.
+Fine tuning : In this, you can use the exact same model and use it on a different task or you can keep the model weights fixed and just add a new layer that you will train or you can slowly unfreeze the layers one at a time. 
 
-BERT models are usualy pre-trained on unlabeled data and fine-tuned on labeled data for some downstream task and use Next sentence prediction and mask language modeling during pre-training. Keeping these concepts in mind, I chose DistillmBERT for the above tasks.
+Therefore, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
 
-For example, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
+BERT models are usualy pre-trained on unlabeled data and fine-tuned on labeled data for some downstream task and use Next sentence prediction and mask language modeling during pre-training. 
 
-Similarly, in the above tasks, we have a sentence classifier model of DistillmBERT which is already pre-trained. This model was chosen because this has already been trained with a large corpus of data. This pre-trained model is uncased and multilingual. Hence, can be fine-tuned on a variety of different use cases especially for multi-task learning as the problem demands.
+Keeping these concepts in mind, I chose DistillmBERT for the above tasks - sentence classification and Named Entity Recognition. We have a sentence classifier model of DistillmBERT which is already pre-trained with a large corpus of data. This pre-trained model is uncased and multilingual. Hence, can be fine-tuned on a variety of different use cases especially for multi-task learning as the problem demands.
 
 The layers you would freeze/unfreeze.
 
