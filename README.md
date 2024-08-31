@@ -101,6 +101,17 @@ Keeping these concepts in mind, I chose DistillmBERT for the above tasks - sente
 
 The layers you would freeze/unfreeze.
 
+In transfer learning implemented for Language models, there are 2 strategies used for freezing of layers 
+
+1. Gradual unfreezing - unfreeze one layer at a time where you unfreeze the last one then fine-tune using that and keep the others fixed then unfreeze the next one, and then you fine tune using that and similarly you keep unfreezing each layer.
+2. Adaptive layers - you add feed-forward networks to each block of the transformer and only let these new layers train.
+
+In the tasks above, the initial layers of BERT were kept frozen to preserve the learned representations whle the upper layers were fine tuned for the specific task. This way most of the parameters were shared across all the tasks.
+
+Task specific heads 
+Classification Head: For the sentence classification task, a task-specific head (usually a fully connected layer followed by a softmax or sigmoid activation) is added on top of BERT’s pooled output (usually the [CLS] token) to output logits corresponding to the number of classes.
+NER Head: For NER, a token classification head is added which consists of a linear layer on the top of each token's hidden states to predict NER labels for each token(e.g., B-PER, I-ORG, etc.).
+
 The rationale behind these choices.
 
 
