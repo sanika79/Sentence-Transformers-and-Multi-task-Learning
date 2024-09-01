@@ -6,7 +6,7 @@ Requires python 3.7+
 
 Install dependencies
 
-**pip install requirements.txt**
+'pip install requirements.txt'
 
 ## Task 1: Sentence Transformer Implementation
 Implement a sentence transformer model using any deep learning framework of your choice. This model
