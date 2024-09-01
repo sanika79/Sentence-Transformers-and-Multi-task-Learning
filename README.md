@@ -1,12 +1,12 @@
-# Sentence-Transformers-and-Multi-task-Learning
+## Sentence-Transformers-and-Multi-task-Learning
 
-## Installation
+# Installation
 
 Requires python 3.7+
 
 Install dependencies
 
-pip install requirements.txt
+```pip install requirements.txt
 
 
 
@@ -18,7 +18,7 @@ few sample sentences and showcase the obtained embeddings.
 
 Describe any choices you had to make regarding the model architecture outside of the transformer backbone.
 
-## Backbone used - DistilmBERT
+# Backbone used - DistilmBERT
 
 Advantages of the Model Architechture (Why was this model chosen?)
 
