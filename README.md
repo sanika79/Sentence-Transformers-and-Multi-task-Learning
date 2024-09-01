@@ -48,14 +48,17 @@ should be trained given the following:
 ## If the entire network should be frozen.
 
 **Implications** 
+
 1. This model uses pre-trained embeddings without further tuning for any task.
 2. This scenario is assumes that the model already performs well on any specific task and does not need further improvement.
    
 **Advantages**
+
 1. This scenario is useful when computational resources are limited as we just have to use the knowledge of the available pre-trained embedding weights for any given task and fewer parameters are being updated.
 3. Also leads to faster inference.
 
 **Explanation**
+
 Since the entire model is frozen, the model can disrectly be used as a feature extracter, as the embeddings are directly used by the task-specific heads for text classification or any other desired task. This approach is good for small datasets where the model prevents overfitting to this limited data.
 
 ## If only the transformer backbone should be frozen.
@@ -64,12 +67,14 @@ Since the entire model is frozen, the model can disrectly be used as a feature e
 1. This approach makes use of the pre-trainbed embeddings of the backbone while the task specific heads are fine-tuned. Th general language understanding of the BERT is preserved.
    
 **Advantages**
+
 1. The information from the pre-trained backbone can be extracted and passed on to the task specific heads that are fine-tuned.
 2. Leads to reduction in learnable parameters
 3. Reduces training time.
 4. Smaller dataset
 
 **Explanation**
+
 Considering a frozen backbone, we are applying transfer learning which will alllow us to improve predictions because you'll learn a few things from different tasks that might be helpful and useful for your currents predictions on the task you're training on in NLP.
 And since your model has already learnt a lot , you will need less additional data to fine-tune the heads.
 
@@ -81,6 +86,7 @@ And since your model has already learnt a lot , you will need less additional da
 2. The frozen head will preserve its performance on one task, but the other unfrozen head will adapt to a new task.
 
 **Advantages** 
+
 1. Great for multi-task learning where large model backbone embeddings can be used for multiple tasks by fine tuning whichever head is necessary for the task at hand.
 2. Serves as a great advantage when you want to maintain performance on an existing task while also adapting to a new one without losing the model's previous capabilities.
 
@@ -115,8 +121,10 @@ In transfer learning implemented for Language models, there are 2 strategies use
 In the tasks above, the initial layers of BERT were kept frozen to preserve the learned representations whle the upper layers were fine tuned for the specific task. This way most of the parameters were shared across all the tasks.
 
 Task specific heads 
-Classification Head: For the sentence classification task, a task-specific head (usually a fully connected layer followed by a softmax or sigmoid activation) is added on top of BERT’s pooled output (usually the [CLS] token) to output logits corresponding to the number of classes.
-NER Head: For NER, a token classification head is added which consists of a linear layer on the top of each token's hidden states to predict NER labels for each token(e.g., B-PER, I-ORG, etc.).
+
+**Classification Head** : For the sentence classification task, a task-specific head (usually a fully connected layer followed by a softmax or sigmoid activation) is added on top of BERT’s pooled output (usually the [CLS] token) to output logits corresponding to the number of classes.
+
+**NER Head** : For NER, a token classification head is added which consists of a linear layer on the top of each token's hidden states to predict NER labels for each token(e.g., B-PER, I-ORG, etc.).
 
 **The rationale behind these choices**
 
