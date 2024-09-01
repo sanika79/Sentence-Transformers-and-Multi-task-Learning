@@ -1,19 +1,24 @@
 # Sentence-Transformers-and-Multi-task-Learning
 
-## Intallation
+## Installation
 
 Requires python 3.7+
 
+Install dependencies
+
+pip install requirements.txt
 
 
-Task 1: Sentence Transformer Implementation
+
+
+## Task 1: Sentence Transformer Implementation
 Implement a sentence transformer model using any deep learning framework of your choice. This model
 should be able to encode input sentences into fixed-length embeddings. Test your implementation with a
 few sample sentences and showcase the obtained embeddings. 
 
 Describe any choices you had to make regarding the model architecture outside of the transformer backbone.
 
-Backbone used - DistilmBERT
+## Backbone used - DistilmBERT
 
 Advantages of the Model Architechture (Why was this model chosen?)
 
@@ -30,7 +35,7 @@ Despite its smaller size, it achieves around 97% of mBERT's performance across v
 
 
 
-Task 2: Multi-Task Learning Expansion
+## Task 2: Multi-Task Learning Expansion
 Expand the sentence transformer to handle a multi-task learning setting.
 Task A: Sentence Classification – Classify sentences into predefined classes (you can make these up).
 Task B: [Choose another relevant NLP task such as Named Entity Recognition, Sentiment Analysis, etc.]
@@ -39,7 +44,7 @@ Describe the changes made to the architecture to support multi-task learning.
 
 
 
-Task 3
+## Task 3
 Discuss the implications and advantages of each scenario and explain your rationale as to how the model
 should be trained given the following:
 
@@ -123,7 +128,7 @@ The rationale behind these choices.
 The training strategy when applying transfer learning to BERT models involves fine-tuning the pre-trained model on the downstream task. Key decisions include whether to freeze the lower layers of BERT, how to structure the task-specific head, and how to tune the learning rate. Regularization techniques and careful monitoring of validation performance are crucial for successful fine-tuning.
 
 
-Task 4: Layer-wise Learning Rate Implementation (BONUS)
+## Task 4: Layer-wise Learning Rate Implementation (BONUS)
 Implement layer-wise learning rates for the multi-task sentence transformer. Explain the rationale for the
 specific learning rates you&#39;ve set for each layer. Describe the potential benefits of using layer-wise
 learning rates for training deep neural networks. Does the multi-task setting play into that?
