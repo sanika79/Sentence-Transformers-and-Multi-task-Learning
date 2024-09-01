@@ -1,5 +1,11 @@
 # Sentence-Transformers-and-Multi-task-Learning
 
+## Intallation
+
+Requires python 3.7+
+
+
+
 Task 1: Sentence Transformer Implementation
 Implement a sentence transformer model using any deep learning framework of your choice. This model
 should be able to encode input sentences into fixed-length embeddings. Test your implementation with a
