@@ -114,6 +114,8 @@ NER Head: For NER, a token classification head is added which consists of a line
 
 The rationale behind these choices.
 
+The training strategy when applying transfer learning to BERT models involves fine-tuning the pre-trained model on the downstream task. Key decisions include whether to freeze the lower layers of BERT, how to structure the task-specific head, and how to tune the learning rate. Regularization techniques and careful monitoring of validation performance are crucial for successful fine-tuning.
+
 
 Task 4: Layer-wise Learning Rate Implementation (BONUS)
 Implement layer-wise learning rates for the multi-task sentence transformer. Explain the rationale for the
