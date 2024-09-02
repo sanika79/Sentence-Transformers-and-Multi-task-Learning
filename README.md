@@ -17,17 +17,26 @@ Describe any choices you had to make regarding the model architecture outside of
 
 # Backbone used - DistilmBERT
 
-Advantages of the Model Architechture (Why was this model chosen?)
+**Choices regarding the Model Architechture (Advantages of this model)**
 
-1. Uncased model
+**1. Uncased model**
+
 The model used is DistilmBERT. This model was chosen because it is a version of mBERT that is uncased and does not distinguish between uppercase and lowercase letters and will treat all text as lowercase. This property is useful when the case of the input text is not important for the task that we are working on. For example, many text classification tasks.
-2. Small Size
+
+**2. Small Size**
+
 Because of its small size (66 million parameters), it is easy to store the model and it also consumes less memory. DistilBERT has 44M fewer parameters and in total is 40% smaller than BERT.
-3. Faster Inference
+
+**3. Faster Inference**
+
 As it is small, it performs faster model inference than other larger models and also uses less resources. During inference, DistilBERT is 60% faster than BERT.
-4. Multilinguil capability
+
+**4. Multilinguil capability**
+
 DistilmBERT is trained on multiple languages, making it suitable for multilingual tasks such as classification and named entity recognition (NER) across different languages.
-5. Performance similar to mBERT
+
+**5. Performance similar to mBERT**
+
 Despite its smaller size, it achieves around 97% of mBERT's performance across various tasks, making it a good trade-off between size and accuracy.
 
 
