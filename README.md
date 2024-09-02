@@ -111,33 +111,63 @@ Since each head uses different linear transformations to represent words, differ
 
 In general, transfer learning scenarios use pre-trained models so that we can easily extract feature based word embeddings or perform fine-tuning on downstream tasks. 
 
-Feature based Transfer Learning : you learn word embeddings by training one model and then you use those word embeddings in a different model for a different task.
-Fine tuning : In this, you can use the exact same model and use it on a different task or you can keep the model weights fixed and just add a new layer that you will train or you can slowly unfreeze the layers one at a time. 
+**Feature based Transfer Learning**
 
-Therefore, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
+You learn word embeddings by training one model and then you use those word embeddings in a different model for a different task.
+
+**Fine tuning**
+
+In this, you can use the exact same model and use it on a different task or you can keep the model weights fixed and just add a new layer that you will train or you can slowly unfreeze the layers one at a time. Therefore, we can use pre-training tasks like language modeling, mask sentence or next sentence for our model. For example, a model that is pre-trained to predict movie reviews is fine-tuned to predict course reviews.
 
 BERT models are usualy pre-trained on unlabeled data and fine-tuned on labeled data for some downstream task and use Next sentence prediction and mask language modeling during pre-training. 
 
-Keeping these concepts in mind, I chose DistillmBERT for the above tasks - sentence classification and Named Entity Recognition. We have a sentence classifier model of DistillmBERT which is already pre-trained with a large corpus of data. This pre-trained model is uncased and multilingual. Hence, can be fine-tuned on a variety of different use cases especially for multi-task learning as the problem demands.
+Keeping these concepts in mind, I chose DistillmBERT for the above tasks - sentence classification and Named Entity Recognition. We have a sentence classifier model of DistillmBERT which is already pre-trained with a large corpus of data. This pre-trained model is uncased and multilingual. Hence, can be fine-tuned on a variety of different use cases especially for multi-task learning as the above task demands.
 
 **The layers you would freeze/unfreeze**
 
 In transfer learning implemented for Language models, there are 2 strategies used for freezing of layers 
 
-1. Gradual unfreezing - unfreeze one layer at a time where you unfreeze the last one then fine-tune using that and keep the others fixed then unfreeze the next one, and then you fine tune using that and similarly you keep unfreezing each layer.
-2. Adaptive layers - you add feed-forward networks to each block of the transformer and only let these new layers train.
+**1. Gradual unfreezing**
 
-In the tasks above, the initial layers of BERT were kept frozen to preserve the learned representations whle the upper layers were fine tuned for the specific task. This way most of the parameters were shared across all the tasks.
+Unfreeze one layer at a time where you unfreeze the last one then fine-tune using that and keep the others fixed then unfreeze the next one, and then you fine tune using that and similarly you keep unfreezing each layer.
 
-Task specific heads 
+**2. Adaptive layers**
 
-**Classification Head** : For the sentence classification task, a task-specific head (usually a fully connected layer followed by a softmax or sigmoid activation) is added on top of BERT’s pooled output (usually the [CLS] token) to output logits corresponding to the number of classes.
+You add feed-forward networks to each block of the transformer and only let these new layers train.
 
-**NER Head** : For NER, a token classification head is added which consists of a linear layer on the top of each token's hidden states to predict NER labels for each token(e.g., B-PER, I-ORG, etc.).
+**3. PEFT Technique of transfer learning**
+
+Many a times, PEFT - Parameter Efficient Fine Tuning is designed to fine-tune large pre-trained models with minimum additional parameters. This way we can adapt a large model to a new task without modifying all the original model's parameters and saves on computational resources.
+
+**- LORA - Low Rank Adaptation** 
+
+This is a PEFT tecchnique where low-rank matrices are added to the weight matrices of the model, usually between layers or inside the attention mechanism. The other parameters of the model remain frozen and only the low rank matrices are updated during fine-tuning.
+
+This reduces number of trainable parameters, usues less resources and can be used for multi-task learning.
+
+**- Adapters**
+
+Small additional layers are added between the layers of a pre-trained model and only these layers are trained while the other layers remain frozen.
+
+Some key decisions were made based on the various techniqes described above (Adapters, PEFT,etc). How to structure the Task specific heads was also important as the 2 tasks were very different (Classification and NER)
+
+Hence, these are various methods of transfer learning that were kept in mind for multi-task learning.
 
 **The rationale behind these choices**
 
-The training strategy when applying transfer learning to BERT models involves fine-tuning the pre-trained model on the downstream task. Key decisions include whether to freeze the lower layers of BERT, how to structure the task-specific head, and how to tune the learning rate. Regularization techniques and careful monitoring of validation performance are crucial for successful fine-tuning.
+The training strategies for a large model like BERT while applying transfer learning were kept in mind while fine-tuning the model for multi-task learning.
+
+In the tasks above, the initial layers of BERT were kept frozen to preserve the learned representations while the upper layers were fine tuned for the specific task. This way most of the parameters were shared across all the tasks.
+
+Task specific heads design
+
+**Classification Head :**
+
+For the sentence classification task, a task-specific head (usually a fully connected layer followed by a softmax or sigmoid activation) is added on top of BERT’s output (the [CLS] token) to output logits corresponding to the number of classes.
+
+**NER Head :**
+
+For NER, a token classification head is added which consists of a linear layer on the top of each token's hidden states to predict NER labels for each token (e.g., B-PER, I-ORG, etc.).
 
 
 ## Task 4: Layer-wise Learning Rate Implementation (BONUS)
