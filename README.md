@@ -235,6 +235,10 @@ When using pre-trained models like BERT, the lower layers often contain general 
 
 Higher layers in the model, which are more task-specific, can be adapted more rapidly to new tasks with higher learning rates. This enables faster convergence for task-specific fine-tuning, as these layers require more significant updates to specialize in the new task.
 
+**Reduces overfitting**
+
+Since lower layers capture more general patterns, too many changes to these layers might lead to overfitting on the training data. Layer-wise learning rates mitigate this risk by using small learning rates for lower layers and which will reduce the chances of unnecessary updates.
+
 **Impact on validation loss (Early stopping)**
 
 Training with different learning rates reduces the Val loss earlier than fixed learning rates and it achieves the early stopping state much earlier. This will help us to stop the training much sooner and help us to avoid overfitting.
