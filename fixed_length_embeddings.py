@@ -1,51 +1,53 @@
 import torch
 from transformers import DistilBertModel, DistilBertTokenizer
 
-
 ## I decided to use a DistilmBert model as the sentence transformer 
 ## Since DistilBERT and DistilmBERT have the same model architechure, we can use either of them
 
-model_name = "distilbert-base-uncased"
-tokenizer = DistilBertTokenizer.from_pretrained(model_name)
-model = DistilBertModel.from_pretrained(model_name)
-
-def encode_sentences(sentences):
-    # Tokenize the input sentences and return them in the form of a pytorch tensor
-    # the sequence of tokens is created
-    # padding will make sure all input sequences are of the same length 
-    # truncation will ensure sequences do not exceed a maximum length
-
-    inputs = tokenizer(sentences, return_tensors="pt", padding=True, truncation=True, max_length=128)
+class SentenceTransformerModel(torch.nn.Module):
+    def __init__(self, model_name='distilbert-base-uncased'):
+        super(SentenceTransformerModel, self).__init__()
+        self.bert = DistilBertModel.from_pretrained(model_name)
     
-    # Obtain the fixed-length embeddings (pooled output)
-    # Pass the tokenized inputs through the DistilBERT model
-    with torch.no_grad():
-        outputs = model(input_ids=inputs['input_ids'], attention_mask=inputs['attention_mask'])
-    
-    # Extract the [CLS] token's output as the sentence embedding
+    def forward(self, input_ids, attention_mask):
+        # Get the last hidden state (outputs) from the BERT model
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        # We will use the [CLS] token's embedding as the sentence representation
         embeddings = outputs.last_hidden_state[:, 0, :]
+        return embeddings
 
-        ###Embeddings shape: torch.Size([3, 768])
-     
-    return embeddings
+# Initialize the tokenizer and model
+tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+model = SentenceTransformerModel()
 
 # Test sentences
 # We pass sentences which contain a either a mix of uppercase and lower case OR all lower case 
 # characters since we are using an uncased model
+
 sentences = [
-    "The quick brown fox jumps over the lazy dog.",
+    "This is an example sentence",
     "I love the weather in New York City.",
     "my parents are visiting me this month."
 ]
 
-# Get the embeddings
-embeddings = encode_sentences(sentences)
+# Tokenize the input sentences and return them in the form of a pytorch tensor
+# the sequence of tokens is created
+# padding will make sure all input sequences are of the same length 
+# truncation will ensure sequences do not exceed a maximum length
 
-# Convert the embeddings to numpy for better readability
-embeddings = embeddings.numpy()
+inputs = tokenizer(sentences, return_tensors="pt", padding=True, truncation=True, max_length=128)
 
+
+# Pass the tokenized inputs through the DistilBERT model
+# Obtain the fixed-length embeddings 
+
+with torch.no_grad():
+    sentence_embeddings = model(inputs['input_ids'], inputs['attention_mask'])
+
+    ## sentence embeddings shape - number of sentences (input batch size) x size of CLS token's embedding (768 in case of DistilBERT)
 
 # Print the embeddings
-for i, embedding in enumerate(embeddings):
+for i, embedding in enumerate(sentence_embeddings):
     print(f"Sentence: {sentences[i]}")
+    print(f"Embedding size : {len(embedding)}")
     print(f"Embedding: {embedding}\n")
