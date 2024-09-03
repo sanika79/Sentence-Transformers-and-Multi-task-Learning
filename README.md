@@ -13,6 +13,8 @@ Implement a sentence transformer model using any deep learning framework of your
 should be able to encode input sentences into fixed-length embeddings. Test your implementation with a
 few sample sentences and showcase the obtained embeddings. 
 
+**Refer to fixed_length_embeddings.py**
+
 Describe any choices you had to make regarding the model architecture outside of the transformer backbone.
 
 # Backbone used - DistilmBERT
