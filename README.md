@@ -43,10 +43,15 @@ Despite its smaller size, it achieves around 97% of mBERT's performance across v
 
 ## Task 2: Multi-Task Learning Expansion
 Expand the sentence transformer to handle a multi-task learning setting.
-Task A: Sentence Classification – Classify sentences into predefined classes (you can make these up).
-Task B: [Choose another relevant NLP task such as Named Entity Recognition, Sentiment Analysis, etc.]
+
+**Task A: Sentence Classification – Classify sentences into predefined classes (you can make these up).**
+
+
+**Task B: [Choose another relevant NLP task such as Named Entity Recognition, Sentiment Analysis, etc.]
 (you can make the labels up)
-Describe the changes made to the architecture to support multi-task learning.
+Describe the changes made to the architecture to support multi-task learning.**
+
+NER : To expand the existing model to handle Named Entity Recognition (NER), we need to modify the architecture to include a token classification head instead of a sentence classification head. In NER, the model needs to predict a label for each token in the input sentence.
 
 
 
