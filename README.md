@@ -130,7 +130,8 @@ And since your model has already learnt a lot , you will need less additional da
 **Explanation**
 
 In a multi-task learning setting, you apply in parallel the attention mechanism to multiple sets of the queue, keys and values that you can get by transforming the original embeddings. In multi-head attention, the number of times that you apply the attention mechanism is the number of heads in the model. For instance, you will need two sets of queries, keys and values in a model with two heads. The first head would use a set of representations and the second head would use a different set.  Using different sets of representations, allow your model to learn multiple relationships between the words from the query and key matrices.
-Since each head uses different linear transformations to represent words, different heads learn different relationships between words.
+
+Since each head uses different linear transformations to represent words, different heads learn different relationships between words. Hence, by using only 1 head and freezing the other, only those representations and patterns of the unfrozen head will be transferred by making it easy for the model to adapt to the task at hand.
 
 
 ## Consider a scenario where transfer learning can be beneficial. Explain how you would approach the transfer learning process, including:
@@ -237,6 +238,15 @@ Higher layers in the model, which are more task-specific, can be adapted more ra
 **Impact on validation loss (Early stopping)**
 
 Training with different learning rates reduces the Val loss earlier than fixed learning rates and it achieves the early stopping state much earlier. This will help us to stop the training much sooner and help us to avoid overfitting.
+
+
+## Benefit for multi-task setting
+
+Multi-task setting benefits from layer-wise learning rates because different tasks may utilize or leverage different parts of the model. 
+
+For example, the classifier head may need to adapt quickly to the specific labels of one task (e.g., sentence classification), while the backbone might need only minor changes to accommodate a new task like NER. 
+
+Using layer-wise learning rates allows fine-tuning of the model in a way that balances the learning needs of all tasks involved.
 
 
 
