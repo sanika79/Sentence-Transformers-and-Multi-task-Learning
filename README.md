@@ -48,12 +48,26 @@ Expand the sentence transformer to handle a multi-task learning setting.
 
 **Task A: Sentence Classification – Classify sentences into predefined classes (you can make these up).**
 
+**Refer to sentence_classification.py**
 
 **Task B: [Choose another relevant NLP task such as Named Entity Recognition, Sentiment Analysis, etc.]
-(you can make the labels up)
-Describe the changes made to the architecture to support multi-task learning.**
+(you can make the labels up)**
 
-NER : To expand the existing model to handle Named Entity Recognition (NER), we need to modify the architecture to include a token classification head instead of a sentence classification head. In NER, the model needs to predict a label for each token in the input sentence.
+**Refer to named_entity_recognition.py**
+
+**Describe the changes made to the architecture to support multi-task learning.**
+
+**Classification**
+
+The same BERT model is used for both sentence embedding and classification, but with an additional linear layer for classification.
+
+We use the embedding of the [CLS] token as the fixed-length representation of the sentence and add a head (linear layer) to output logits corresponding to the number of classes.
+
+**NER**
+
+To expand the existing model to handle Named Entity Recognition (NER), we need to modify the architecture to include a token classification head instead of a sentence classification head. 
+
+It consists of a linear layer on the top of each token's hidden states to predict NER labels for each token (e.g., B-PER, I-ORG, etc.).
 
 
 
