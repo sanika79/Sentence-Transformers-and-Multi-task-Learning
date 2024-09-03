@@ -46,6 +46,9 @@ with torch.no_grad():
 
     ## sentence embeddings shape - number of sentences (input batch size) x size of CLS token's embedding (768 in case of DistilBERT)
 
+## The default hidden size for the distilbert-base-uncased model is 768.
+## Therefore, the size of the fixed-length embeddings output by the model will be a vector of size 768.
+
 # Print the embeddings
 for i, embedding in enumerate(sentence_embeddings):
     print(f"Sentence: {sentences[i]}")
