@@ -57,18 +57,25 @@ Expand the sentence transformer to handle a multi-task learning setting.
 
 **Describe the changes made to the architecture to support multi-task learning.**
 
-**Classification**
+**Changes made for Classification**
 
 The same BERT model is used for both sentence embedding and classification, but with an additional linear layer for classification.
 
 We use the embedding of the [CLS] token as the fixed-length representation of the sentence and add a head (linear layer) to output logits corresponding to the number of classes.
 
-**NER**
+**Changes made for NER**
 
 To expand the existing model to handle Named Entity Recognition (NER), we need to modify the architecture to include a token classification head instead of a sentence classification head. 
 
 It consists of a linear layer on the top of each token's hidden states to predict NER labels for each token (e.g., B-PER, I-ORG, etc.).
 
+**MODEL TESTING**
+
+The linear layer in both the tasks has not been trained. Since this is a model definition without training, the predictions might not be meaningful until the model is fine-tuned. 
+
+**NOTE** 
+
+This was because training a model was not expected for this assignment.
 
 
 ## Task 3
