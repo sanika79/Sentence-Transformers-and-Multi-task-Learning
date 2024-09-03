@@ -199,28 +199,48 @@ For NER, a token classification head is added which consists of a linear layer o
 
 
 ## Task 4: Layer-wise Learning Rate Implementation (BONUS)
-Implement layer-wise learning rates for the multi-task sentence transformer. Explain the rationale for the
-specific learning rates you&#39;ve set for each layer. Describe the potential benefits of using layer-wise
+Implement layer-wise learning rates for the multi-task sentence transformer. 
+
+**Refer to layer_wise_learning.py**
+
+Explain the rationale for the specific learning rates you have set for each layer. Describe the potential benefits of using layer-wise
 learning rates for training deep neural networks. Does the multi-task setting play into that?
 
 **Rationale for specific learning rates**
 
 *Top Layers (Task Specific Heads)*
 
-This includes the task specific heads which are generally fine tuned to any downstream task. They need most significant updates to their learning to adapt the pre-trained model to new tasks.
-
-Hence, higher learning rates are set for these layers
+This includes the task specific heads which are generally fine tuned to any downstream task. They need most significant updates to their learning to adapt the pre-trained model to new tasks. Hence, higher learning rates are set for these layers
 
 *Middle Layers (Intermediate transformer layers)*
 
-These start capturing more task-specific features and extract more context than lower layers making them more relevant to the particular tasks you're fine-tuning the model for.
-
-Hence, a moderate learning rate would suffice for these layers.
+These start capturing more task-specific features and extract more context than lower layers making them more relevant to the particular tasks you're fine-tuning the model for. Hence, a moderate learning rate would suffice for these layers.
 
 *Lower layers (Embeddings and lower transformer layers)*
 
-These layers capture basic language patterns and word embeddings, which are generally transferable to downstream tasks. Since these layers are already well-trained on large datasets (e.g., during the pre-training of DistilmBERT), they often require less aggressive updating.
+These layers capture basic language patterns and word embeddings, which are generally transferable to downstream tasks. Since these layers are already well-trained on large datasets (e.g., during the pre-training of DistilmBERT), they often require less aggressive updating. The embedding layer is very close to the input, where basic token representations are created. We set a low learning rate here to avoid drastic changes to these fundamental representations.
 
-The embedding layer is very close to the input, where basic token representations are created. We set a low learning rate here to avoid drastic changes to these fundamental representations.
+**Potential benefits of using layer-wise learning rates**
+
+**Stable training**
+
+By applying smaller learning rates to lower layers, we prevent the model from losing useful pre-trained features, leading to more stable training.
+
+**Preserve pretrianed knowledge**
+
+When using pre-trained models like BERT, the lower layers often contain general linguistic knowledge. Smaller learning rates for these layers help preserve this knowledge, allowing the model to leverage its pre-training effectively.
+
+**Faster convergence**
+
+Higher layers in the model, which are more task-specific, can be adapted more rapidly to new tasks with higher learning rates. This enables faster convergence for task-specific fine-tuning, as these layers require more significant updates to specialize in the new task.
+
+**Impact on validation loss (Early stopping)**
+
+Training with different learning rates reduces the Val loss earlier than fixed learning rates and it achieves the early stopping state much earlier. This will help us to stop the training much sooner and help us to avoid overfitting.
+
+
+
+
+
 
 
